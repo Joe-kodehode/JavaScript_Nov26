@@ -1,135 +1,191 @@
-// Lesson 1: Intro to JavaScript
+// Lesson 2: Conditionals
 
-// Comments
+// Section 1: The typeof operator
 
-// ctrl + * to make a comment
-// shift + alt + A  to make a multi-line comment
+let myVariable = "hello";
+console.log(typeof myVariable);
 
-/*  
-laksdfjl
-alsdjfla
-lasdjflaj
- */
+// Section 2: if / else if / else
 
-// Section 1: Console.log()
-// The console.log() function prints messages to the console.
-// It's an essential tool for debugging and checking what your code is doing.
+// basic if statement
+let temperature = -10;
 
-console.log("Hello World!");
+if (temperature >= 25) {
+  console.log("It's a hot day!");
+} else if (temperature >= 15) {
+  console.log("it's a warm day");
+} else if (temperature > 0) {
+  console.log("it's a chilly day!");
+} else {
+  console.log("It's freezing!");
+}
 
-// Section 2: Variables and Data Types
+// Section 3: Logical Operators: AND && and OR ||
 
-// camelCase - this is when we write the first word's letter in lowercase and subsequent first letters in uppercase. it's used for naming variables in JS.
+let age = 18;
+let hasLicense = true;
+let banned = false;
 
-// Variables store data values. Here are some examples of various data types:
+// if the age is 18 or over and hasLicense is set to true, we console log "you can drive"
 
-// String (text)
-let exampleString = "This is a string";
-console.log(exampleString);
+// && requires both conditions on left and right side to be true
+if (age >= 18 && hasLicense && !banned) {
+  console.log("You can drive!");
+} else {
+  console.log("You can't drive! get older or get your license!");
+}
 
-// Number
-let exampleNumber = 50;
-console.log(exampleNumber);
+// || requires at least one of the conditions beside it to be true
+const today = new Date();
+const day = today.getDay();
 
-// Boolean
-let booleanExample = false;
-console.log(booleanExample);
+let weekday;
+if (weekday === 0) {
+  weekday = "Sunday";
+} else if (day === 1) {
+  weekday = "Monday";
+} else if (day === 2) {
+  weekday = "Tuesday";
+} else if (day === 3) {
+  weekday = "Wednesday";
+} else if (day === 4) {
+  weekday = "Thursday";
+} else if (day === 5) {
+  weekday = "Friday";
+} else if (day === 6) {
+  weekday = "Saturday";
+}
 
-// Array (list of values)
-let exampleArray = ["red", "green", "blue"];
-console.log(exampleArray); // logs the entire array
-console.log(exampleArray[1]); // logs only the value at index 1 of the array
-// Arrays have indexes, index starts from 0!
+// let weekday = "Tuesday"
 
-// Object (hold key value pairs)
-let person = {
-  name: "Alice",
-  age: 25,
-  isStudent: false,
-};
-console.log(person);
+console.log(weekday);
 
-// Undefined (declared variable, but not assigned a value)
-let exampleUndefined;
-console.log(exampleUndefined);
+if (weekday === "Saturday" || weekday === "Sunday") {
+  console.log("It's the weekend! Yipee!");
+} else if (
+  weekday === "Monday" ||
+  weekday === "Tuesday" ||
+  weekday === "Wednesday" ||
+  weekday === "Thursday" ||
+  weekday === "Friday"
+) {
+  console.log("It's a weekday! back to work!");
+} else {
+  console.log("Please enter a valid day");
+}
 
-// Null (an intentional absence of value)
-let nullExample = null;
-console.log(nullExample);
+// using both && and ||
 
-// let vs const
-// when declaring variables with let, we are able to reassign the value stored inside.
-// when declaring variables with const, the value inside may not be reassigned.
-// Use const as the default, use let when the variable will be reassigned.
+let referal = true;
+let firstShop = true;
+let premiumMember = false;
 
-let changeableMessage = "I can change!"; // declaring variable and giving value
-changeableMessage = "I have changed!"; // reassigning the value inside
-console.log(changeableMessage);
+// IF the user has a referal AND it's their first shop, they get a discount OR if they are a premium member, they always get a discount.
 
-const fixedValue = "I cannot change!";
-// fixedValue = "Uh-oh.";
-console.log(fixedValue);
+// if (premiumMember) {
+//   console.log("you get discount");
+// } else if (firstShop) {
+//   if (referal) {
+//     console.log("you get discount");
+//   } else {
+//     console.log("you dont get discount");
+//   }
+// }
 
-// Section 3: Operators
-// Operators perform calculations or comparisons.
+if ((referal && firstShop) || premiumMember) {
+  console.log("You get a discount!");
+} else {
+  console.log("No discount.");
+}
 
-let num1 = 10;
-let num2 = 5;
+// Section 4: Ternary Conditional
+// Ternary is best used for simple if/else conditions.
 
-console.log(num1 + num2); // addition
-console.log(num1 - num2); // subtraction
-console.log(num1 * num2); // multiplication
-console.log(num1 / num2); // division
-console.log(num1 % num2); // modulus (remainder)
+let isMember = false;
 
-// Using the + to add together strings
-const firstName = "Jane";
-const lastName = "Doe";
-const fullName = firstName + " " + lastName;
+// if isMember is true, fee is $5, else fee is $10
 
-console.log(firstName, lastName, fullName);
+// let fee;
+// if (isMember) {
+//   fee = "$5";
+// } else {
+//   fee = "$10";
+// }
 
-// Incrementing with ++ and decrementing with --
+let fee = isMember ? "$5" : "$10";
 
-let counter = 0;
+console.log(fee);
 
-counter++; // increases number by 1
-counter++;
-counter++;
-counter--; // decreases number by 1
-counter--;
+// Section 5: Switch Statement
+// A switch statement checks a value against multiple cases.
 
-console.log(counter);
+let fruit = "Kiwi";
 
-// Addition and Subtraction assignments
+switch (fruit) {
+  case "apple":
+    console.log("Apples are delicious!");
+    break;
+  case "banana":
+    console.log("Bananas are a great source of potassium!");
+    break;
+  case "orange":
+    console.log("Oranges are full of vitamin C!");
+    break;
+  default:
+    console.log("Unknown fruit");
+}
 
-let score = 10;
-// reassigns score to be the current score plus 10
-score = score + 10;
-// does the same, but using the addition assignment ✅
-score += 10;
+// Use if / else if → for complex or varied conditions
+// Use switch → for one variable with many fixed values
 
-score = score - 5;
-score -= 5;
+// Section 6: Truthy/Falsey values
 
-console.log(score);
+let value = "hello";
 
-// Multiplication and Division assignments
-score *= 2;
-console.log(score);
+if (value) {
+  console.log("This data was true");
+} else {
+  console.log("This data was false");
+}
 
-score /= 3;
-console.log(score);
+// Truthy
+// Strings with values
+// Positive Number
+// Negative Number
+// Array with values
+// Empty Array
+// Object with key value pairs
+// Empty Object
 
-// Comparison Operators
+// Falsey
+// Empty String
+// Number 0
+// Undefined
+// Null
+// NaN (not a number)
 
-// These operators compare values and return a boolean (true or false)
+// Section 7: Template String / Template Literal
 
-console.log(15 > 20); // greater than
-console.log(15 < 20); // less than
-console.log(15 >= 15); // greater than or equal to
-console.log(15 <= 14); // less than or equal to
-console.log(15 == "15"); // equal to (does not take data type into account)
-console.log(15 === "15"); // strictly equal to (takes into account data type)
-console.log(15 != "15"); // not equal to
-console.log(15 !== "15"); // strictly not equal to
+const firstName = "Ola";
+const lastName = "Nordmann";
+const country = "Norway";
+const town = "Oslo";
+
+const greeting = `Welcome ${firstName} ${lastName} from ${town} ${country} to my website`;
+
+// const greeting =
+//   "Welcome," +
+//   " " +
+//   firstName +
+//   " " +
+//   lastName +
+//   " " +
+//   "from" +
+//   " " +
+//   town +
+//   " " +
+//   country +
+//   " " +
+//   "to my website";
+
+console.log(greeting);
