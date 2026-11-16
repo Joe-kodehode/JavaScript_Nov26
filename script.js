@@ -1,191 +1,171 @@
-// Lesson 2: Conditionals
+// Functions
 
-// Section 1: The typeof operator
+// A function is a block of code designed to do one specific task. It lets you write code once and reuse it, keeping your program clean and organized. However, the function won't do anything until you call it.
 
-let myVariable = "hello";
-console.log(typeof myVariable);
+// Section 1: Function Declarations and Hoisting
 
-// Section 2: if / else if / else
-
-// basic if statement
-let temperature = -10;
-
-if (temperature >= 25) {
-  console.log("It's a hot day!");
-} else if (temperature >= 15) {
-  console.log("it's a warm day");
-} else if (temperature > 0) {
-  console.log("it's a chilly day!");
-} else {
-  console.log("It's freezing!");
+// Regular function can be called before creation due to hoisting
+function sayHello() {
+  console.log("Hello World");
 }
 
-// Section 3: Logical Operators: AND && and OR ||
+// function call
+sayHello();
 
-let age = 18;
-let hasLicense = true;
-let banned = false;
+// Section 2: Arrow Functions
 
-// if the age is 18 or over and hasLicense is set to true, we console log "you can drive"
+// arrow functions cannot be called before creation (no hoisting)
+const arrowFunction = () => {
+  console.log("Hello from the arrow function!");
+};
 
-// && requires both conditions on left and right side to be true
-if (age >= 18 && hasLicense && !banned) {
-  console.log("You can drive!");
-} else {
-  console.log("You can't drive! get older or get your license!");
+arrowFunction();
+
+// Section 3: Return and Scope
+// Variables declared inside functions are only scoped to the function (dont exist outside the function!)
+// Global scope variables are accessable from inside functions.
+// We can use the return keyword to send data from our function to the function call (it replaces the function call basically)
+// Once a return runs, all code below is not read. Return exits the function.
+
+function returnData() {
+  const myMessage = "This is my message";
+  return myMessage;
 }
 
-// || requires at least one of the conditions beside it to be true
-const today = new Date();
-const day = today.getDay();
+console.log(returnData());
 
-let weekday;
-if (weekday === 0) {
-  weekday = "Sunday";
-} else if (day === 1) {
-  weekday = "Monday";
-} else if (day === 2) {
-  weekday = "Tuesday";
-} else if (day === 3) {
-  weekday = "Wednesday";
-} else if (day === 4) {
-  weekday = "Thursday";
-} else if (day === 5) {
-  weekday = "Friday";
-} else if (day === 6) {
-  weekday = "Saturday";
+// Section 4: Parameters and Arguments
+
+// Example 1 - hard coded function
+
+function add() {
+  return 3 + 4;
 }
 
-// let weekday = "Tuesday"
+console.log(add());
 
-console.log(weekday);
+// Example 2 - soft coded functions (dynamic)
 
-if (weekday === "Saturday" || weekday === "Sunday") {
-  console.log("It's the weekend! Yipee!");
-} else if (
-  weekday === "Monday" ||
-  weekday === "Tuesday" ||
-  weekday === "Wednesday" ||
-  weekday === "Thursday" ||
-  weekday === "Friday"
-) {
-  console.log("It's a weekday! back to work!");
-} else {
-  console.log("Please enter a valid day");
+function minus(num1, num2) {
+  return num1 - num2;
 }
 
-// using both && and ||
+console.log(minus(10, 5));
+console.log(minus(100, 47));
+console.log(minus(10000, 8460));
 
-let referal = true;
-let firstShop = true;
-let premiumMember = false;
+function multiply(num1, num2) {
+  return num1 * num2;
+}
 
-// IF the user has a referal AND it's their first shop, they get a discount OR if they are a premium member, they always get a discount.
+console.log(multiply(10, 7));
 
-// if (premiumMember) {
-//   console.log("you get discount");
-// } else if (firstShop) {
-//   if (referal) {
-//     console.log("you get discount");
+// Example 3 - a greeter function using parameters and template strings
+
+const greeter = (time, name) => {
+  return `Good ${time} ${name}`;
+};
+
+console.log(greeter("evening", "Tom"));
+console.log(greeter("afternoon", "Wendy"));
+console.log(greeter("night", "Wendy"));
+
+// Section 5: Implicit Return in Arrow Functions
+// If we instantly return in an arrow function, we can remove the return keyword and the {}
+
+// without implicit return:
+// const divide = (num1, num2) => {
+//   return num1 / num2;
+// };
+
+// with implicit return:
+const divide = (num1, num2) => num1 / num2;
+
+console.log(divide(10, 3));
+console.log(divide(1, 20));
+
+// Section 6: Calculator function using Switch (conditionals in function)
+
+function calculator(num1, num2, operator) {
+  switch (operator) {
+    case "+":
+      return num1 + num2;
+    case "-":
+      return num1 - num2;
+    case "*":
+      return num1 * num2;
+    case "/":
+      return num1 / num2;
+    default:
+      return "Error: Invalid Operator";
+  }
+}
+
+console.log(calculator(100, 20, "+"));
+console.log(calculator(100, 20, "-"));
+console.log(calculator(100, 20, "*"));
+console.log(calculator(100, 20, "/"));
+console.log(calculator(100, 20, "cat"));
+
+const returnedData = calculator(100, 100, "*");
+
+console.log(calculator(returnedData, 20, "/"));
+
+// Section 7: Updating a global variable using a funciton
+
+let health = 100;
+let maxHealth = 250;
+
+// make a function where the health can go up or down by an amount.
+
+const updateHealth = (direction, amount) => {
+  if (direction === "up") {
+    health += amount;
+    if (health > maxHealth) {
+      health = maxHealth;
+    }
+  } else if (direction === "down") {
+    health -= amount;
+    if (health <= 0) {
+      console.log("Game Over");
+      health = 100;
+    }
+  }
+};
+
+console.log(health);
+updateHealth("up", 10); // 110
+console.log(health);
+updateHealth("down", 10); // 100
+console.log(health);
+updateHealth("down", 50); // 50
+console.log(health);
+updateHealth("up", 1000);
+console.log(health);
+updateHealth("down", 1000);
+console.log(health);
+
+// if the player takes damage, health goes down, else if the player heals health goes up. ✅
+// decide how much it goes up or down by ✅
+// set the player's max hp to 200. if they heal over 200, their health gets set to 200 ✅
+// if health goes below or equal to 0 console.log a game over message and reset health back to 100 ready for the next game. ✅
+
+// Section 8: Using Template Literal and Ternary in a Function
+
+const fruits = ["Banana", "Apple", "Pear", "Kiwi"];
+
+// Make a function to check each element in the array. Compare it to a passed in fruit and console.log if it is or isn't in the array.
+
+// const checkItem = (fruit) => {
+//   if (fruits.includes(fruit)) {
+//     return "The fruit is in the array";
 //   } else {
-//     console.log("you dont get discount");
+//     return "The fruit is not in the array";
 //   }
-// }
+// };
 
-if ((referal && firstShop) || premiumMember) {
-  console.log("You get a discount!");
-} else {
-  console.log("No discount.");
-}
+const checkItem = (fruit) =>
+  `The array ${fruits.includes(fruit) ? "does" : "doesn't"} include ${fruit}`;
 
-// Section 4: Ternary Conditional
-// Ternary is best used for simple if/else conditions.
-
-let isMember = false;
-
-// if isMember is true, fee is $5, else fee is $10
-
-// let fee;
-// if (isMember) {
-//   fee = "$5";
-// } else {
-//   fee = "$10";
-// }
-
-let fee = isMember ? "$5" : "$10";
-
-console.log(fee);
-
-// Section 5: Switch Statement
-// A switch statement checks a value against multiple cases.
-
-let fruit = "Kiwi";
-
-switch (fruit) {
-  case "apple":
-    console.log("Apples are delicious!");
-    break;
-  case "banana":
-    console.log("Bananas are a great source of potassium!");
-    break;
-  case "orange":
-    console.log("Oranges are full of vitamin C!");
-    break;
-  default:
-    console.log("Unknown fruit");
-}
-
-// Use if / else if → for complex or varied conditions
-// Use switch → for one variable with many fixed values
-
-// Section 6: Truthy/Falsey values
-
-let value = "hello";
-
-if (value) {
-  console.log("This data was true");
-} else {
-  console.log("This data was false");
-}
-
-// Truthy
-// Strings with values
-// Positive Number
-// Negative Number
-// Array with values
-// Empty Array
-// Object with key value pairs
-// Empty Object
-
-// Falsey
-// Empty String
-// Number 0
-// Undefined
-// Null
-// NaN (not a number)
-
-// Section 7: Template String / Template Literal
-
-const firstName = "Ola";
-const lastName = "Nordmann";
-const country = "Norway";
-const town = "Oslo";
-
-const greeting = `Welcome ${firstName} ${lastName} from ${town} ${country} to my website`;
-
-// const greeting =
-//   "Welcome," +
-//   " " +
-//   firstName +
-//   " " +
-//   lastName +
-//   " " +
-//   "from" +
-//   " " +
-//   town +
-//   " " +
-//   country +
-//   " " +
-//   "to my website";
-
-console.log(greeting);
+console.log(checkItem("Kiwi"));
+console.log(checkItem("Strawberries"));
