@@ -1,171 +1,100 @@
-// Functions
+// Methods (built-in functions)
 
-// A function is a block of code designed to do one specific task. It lets you write code once and reuse it, keeping your program clean and organized. However, the function won't do anything until you call it.
+// A method in JavaScript is a built-in function that you use with a specific type of data, like strings, numbers or arrays. It lets you do something with that data—like change it, check it, copy or access part of it. Some methods alter the original piece of data, others don't alter the original!
 
-// Section 1: Function Declarations and Hoisting
+// Section 1: String Methods
 
-// Regular function can be called before creation due to hoisting
-function sayHello() {
-  console.log("Hello World");
-}
+const text = "     Hello, JavaScript World World!      ";
 
-// function call
-sayHello();
+console.log(text);
+console.log(text.trim()); // removes whitespace from both ends of the string. Does not alter original string.
+console.log(text.toUpperCase()); // converts the string to all uppercase
+console.log(text.toLowerCase()); // converts the string to all lowercase
+console.log(text.indexOf("World")); // returns the index of the first instance of the start of the passed in string
+console.log(text.slice(5, 10)); // slices out a pice of the string between the given indexes (start included, end excluded).
+console.log(text.replace("World", "Universe")); // replaces the first instance of the string with the new string
+console.log(text.replaceAll("World", "Galaxy")); // replaces all instances of the string with the new string
+console.log(text.charCodeAt(5)); // returns the unicode number for the character at the given index
+console.log(text.repeat(3)); // repeats the string
 
-// Section 2: Arrow Functions
+console.log(text.length); // returns the length of the string (how many characters in total in the string)
 
-// arrow functions cannot be called before creation (no hoisting)
-const arrowFunction = () => {
-  console.log("Hello from the arrow function!");
-};
+// Section 1.1: Converting a String into an Array
+console.log(text.trim().split(" "));
 
-arrowFunction();
+// Section 1.2: Converting a String into a Number
+let numberString = "123.456xyz";
 
-// Section 3: Return and Scope
-// Variables declared inside functions are only scoped to the function (dont exist outside the function!)
-// Global scope variables are accessable from inside functions.
-// We can use the return keyword to send data from our function to the function call (it replaces the function call basically)
-// Once a return runs, all code below is not read. Return exits the function.
+console.log(Number(numberString)); // returns the string as a number. if any part of the string is invalid, returns NaN (Not a Number)
+console.log(parseInt(numberString)); // returns only the whole number, ignores invalid and decimals.
+console.log(parseFloat(numberString)); // returns the number, including the decimal but stops when it gets to invalid characters
 
-function returnData() {
-  const myMessage = "This is my message";
-  return myMessage;
-}
+// Section 2: Array Methods
+const colors = ["Red", "Green", "Blue"];
 
-console.log(returnData());
+console.log(colors.length); // returns the number of elements in the array. Starts at 1, not 0! We're not checking the index!!
 
-// Section 4: Parameters and Arguments
+colors.push("Yellow"); // adds the passed in element to the end of the array
+console.log(colors);
+const poppedColor = colors.pop(); // removes the last element from the array, can be stored in a new variable if you want.
+console.log(poppedColor);
+console.log(colors);
+colors.unshift("Purple"); // adds the passed in element to the start of the array
+console.log(colors);
+colors.shift(); // removes the first element from the array, can be stored in a new variable if you want.
+console.log(colors);
+console.log(colors.includes("Green")); // checks for element in the array, returns true or false
+const newColors = colors.toSpliced(1, 2, "Brown"); // replaces element(s) with other element(s). Does not alter the original array. Syntax: toSpliced(startIndex, amount, replaceWith)
+console.log(newColors);
+console.log(colors);
+colors.splice(0, 1, "Orange", "Pink"); // Same as toSpliced, but alters original array.
+console.log(colors);
 
-// Example 1 - hard coded function
+const unsortedNumbers = [4, 7, 3, 4, 3, 7, 5, 4, 8, 1];
+const sortedNumbers = unsortedNumbers.toSorted(); // Sorts the array alphabetically, does not alter original array.
+console.log(sortedNumbers);
+unsortedNumbers.sort(); // Same as toSorted but alters the original array
+console.log(unsortedNumbers);
+console.log(colors.sort());
+console.log(sortedNumbers[0]);
+console.log(sortedNumbers.at(0)); // returns the element at the given index
+console.log(sortedNumbers.at(-1)); // returns the last element in the array (increase number to go further)
+const reversedNumbers = sortedNumbers.toReversed(); // reverses the array, does not alter the original
+console.log(reversedNumbers);
+sortedNumbers.reverse(); // same as .toReversed() but alters the original array
+console.log(sortedNumbers);
 
-function add() {
-  return 3 + 4;
-}
+// Section 2.1: Converting an Array into a String
+console.log(colors);
+console.log(colors.join(" "));
 
-console.log(add());
+// Section 3: Number Methods
+const myNum = 3.837549;
 
-// Example 2 - soft coded functions (dynamic)
+console.log(myNum.toExponential()); // converts our number into exponential notation
+console.log(myNum.toFixed(2)); // rounds our number to the nearest 2 decimal places AND converts it to a string
+console.log(myNum.toString()); // converts the number into a string
 
-function minus(num1, num2) {
-  return num1 - num2;
-}
+// Section 4: Chaining methods together
 
-console.log(minus(10, 5));
-console.log(minus(100, 47));
-console.log(minus(10000, 8460));
+const rawString = "   JavaScript is fun!    ";
+// remove whitespace from both ends
+// replace "fun" with "cool"
+// convert to all uppercase
 
-function multiply(num1, num2) {
-  return num1 * num2;
-}
+const processedString = rawString.trim().replace("fun", "cool").toUpperCase();
+console.log(processedString);
 
-console.log(multiply(10, 7));
+const wordsArr = ["hElLO", "woRLD"];
+// convert our array into a string and make it lowercase
 
-// Example 3 - a greeter function using parameters and template strings
+const fixedWords = wordsArr.toLowerCase().join(" ");
+console.log(fixedWords);
 
-const greeter = (time, name) => {
-  return `Good ${time} ${name}`;
-};
+// Bonus: Rounding numbers with Math
 
-console.log(greeter("evening", "Tom"));
-console.log(greeter("afternoon", "Wendy"));
-console.log(greeter("night", "Wendy"));
+console.log(Math.round(123.89)); // Math.round() rounds to the nearest whole number.
+console.log(Math.ceil(123.45)); // Math.ceil() rounds up
+console.log(Math.floor(123.89)); // Math.floor() rounds down
 
-// Section 5: Implicit Return in Arrow Functions
-// If we instantly return in an arrow function, we can remove the return keyword and the {}
-
-// without implicit return:
-// const divide = (num1, num2) => {
-//   return num1 / num2;
-// };
-
-// with implicit return:
-const divide = (num1, num2) => num1 / num2;
-
-console.log(divide(10, 3));
-console.log(divide(1, 20));
-
-// Section 6: Calculator function using Switch (conditionals in function)
-
-function calculator(num1, num2, operator) {
-  switch (operator) {
-    case "+":
-      return num1 + num2;
-    case "-":
-      return num1 - num2;
-    case "*":
-      return num1 * num2;
-    case "/":
-      return num1 / num2;
-    default:
-      return "Error: Invalid Operator";
-  }
-}
-
-console.log(calculator(100, 20, "+"));
-console.log(calculator(100, 20, "-"));
-console.log(calculator(100, 20, "*"));
-console.log(calculator(100, 20, "/"));
-console.log(calculator(100, 20, "cat"));
-
-const returnedData = calculator(100, 100, "*");
-
-console.log(calculator(returnedData, 20, "/"));
-
-// Section 7: Updating a global variable using a funciton
-
-let health = 100;
-let maxHealth = 250;
-
-// make a function where the health can go up or down by an amount.
-
-const updateHealth = (direction, amount) => {
-  if (direction === "up") {
-    health += amount;
-    if (health > maxHealth) {
-      health = maxHealth;
-    }
-  } else if (direction === "down") {
-    health -= amount;
-    if (health <= 0) {
-      console.log("Game Over");
-      health = 100;
-    }
-  }
-};
-
-console.log(health);
-updateHealth("up", 10); // 110
-console.log(health);
-updateHealth("down", 10); // 100
-console.log(health);
-updateHealth("down", 50); // 50
-console.log(health);
-updateHealth("up", 1000);
-console.log(health);
-updateHealth("down", 1000);
-console.log(health);
-
-// if the player takes damage, health goes down, else if the player heals health goes up. ✅
-// decide how much it goes up or down by ✅
-// set the player's max hp to 200. if they heal over 200, their health gets set to 200 ✅
-// if health goes below or equal to 0 console.log a game over message and reset health back to 100 ready for the next game. ✅
-
-// Section 8: Using Template Literal and Ternary in a Function
-
-const fruits = ["Banana", "Apple", "Pear", "Kiwi"];
-
-// Make a function to check each element in the array. Compare it to a passed in fruit and console.log if it is or isn't in the array.
-
-// const checkItem = (fruit) => {
-//   if (fruits.includes(fruit)) {
-//     return "The fruit is in the array";
-//   } else {
-//     return "The fruit is not in the array";
-//   }
-// };
-
-const checkItem = (fruit) =>
-  `The array ${fruits.includes(fruit) ? "does" : "doesn't"} include ${fruit}`;
-
-console.log(checkItem("Kiwi"));
-console.log(checkItem("Strawberries"));
+// If a console error says "is not a function" you're probably running a method on the wrong datatype!!
