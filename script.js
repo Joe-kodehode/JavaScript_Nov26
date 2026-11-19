@@ -1,100 +1,150 @@
-// Methods (built-in functions)
+// Functions & Methods recap
 
-// A method in JavaScript is a built-in function that you use with a specific type of data, like strings, numbers or arrays. It lets you do something with that data—like change it, check it, copy or access part of it. Some methods alter the original piece of data, others don't alter the original!
+// Section 1: Check if an item is in an array
 
-// Section 1: String Methods
+// make a function which checks if an item is in the array
+// 1. it's not always cheese. ✅
+// 2. we're not actually checking if the list includes the item ✅
+// 3. refactor using ternary rather than if/else
+// 4. What if I want to check a different array but use the same function ?
 
-const text = "     Hello, JavaScript World World!      ";
+// function checkItem(item) {
+//   if (shoppingList.includes(item)) {
+//     return `The list does include ${item}`;
+//   } else {
+//     return `The list doesn't include ${item}`;
+//   }
+// }
 
-console.log(text);
-console.log(text.trim()); // removes whitespace from both ends of the string. Does not alter original string.
-console.log(text.toUpperCase()); // converts the string to all uppercase
-console.log(text.toLowerCase()); // converts the string to all lowercase
-console.log(text.indexOf("World")); // returns the index of the first instance of the start of the passed in string
-console.log(text.slice(5, 10)); // slices out a pice of the string between the given indexes (start included, end excluded).
-console.log(text.replace("World", "Universe")); // replaces the first instance of the string with the new string
-console.log(text.replaceAll("World", "Galaxy")); // replaces all instances of the string with the new string
-console.log(text.charCodeAt(5)); // returns the unicode number for the character at the given index
-console.log(text.repeat(3)); // repeats the string
+const shoppingList = ["milk", "bread", "cheese"];
+const gamesList = [
+  "GTA6",
+  "pong",
+  "WoW",
+  "Solitaire",
+  "Zelda",
+  "Animal Crossing",
+  "Hello kitty: island adventure",
+];
 
-console.log(text.length); // returns the length of the string (how many characters in total in the string)
+function checkItem(item, arr) {
+  const doesDoesnt = arr.includes(item) ? "does" : "doesn't";
 
-// Section 1.1: Converting a String into an Array
-console.log(text.trim().split(" "));
+  return `The list ${doesDoesnt} include ${item}`;
+}
 
-// Section 1.2: Converting a String into a Number
-let numberString = "123.456xyz";
+console.log(checkItem("cheese", shoppingList)); // check the shopping list
+console.log(checkItem("cucumber", shoppingList)); // check the shopping list
+console.log(checkItem("Zelda", gamesList)); // check the games list
 
-console.log(Number(numberString)); // returns the string as a number. if any part of the string is invalid, returns NaN (Not a Number)
-console.log(parseInt(numberString)); // returns only the whole number, ignores invalid and decimals.
-console.log(parseFloat(numberString)); // returns the number, including the decimal but stops when it gets to invalid characters
+// Section 2: Convert a String into Kebab Case
 
-// Section 2: Array Methods
-const colors = ["Red", "Green", "Blue"];
+function toKebabCase(string) {
+  return string.replaceAll(" ", "-");
+}
 
-console.log(colors.length); // returns the number of elements in the array. Starts at 1, not 0! We're not checking the index!!
+console.log(toKebabCase("hello this is kebab case"));
+console.log(toKebabCase("bla bla bla"));
 
-colors.push("Yellow"); // adds the passed in element to the end of the array
-console.log(colors);
-const poppedColor = colors.pop(); // removes the last element from the array, can be stored in a new variable if you want.
-console.log(poppedColor);
-console.log(colors);
-colors.unshift("Purple"); // adds the passed in element to the start of the array
-console.log(colors);
-colors.shift(); // removes the first element from the array, can be stored in a new variable if you want.
-console.log(colors);
-console.log(colors.includes("Green")); // checks for element in the array, returns true or false
-const newColors = colors.toSpliced(1, 2, "Brown"); // replaces element(s) with other element(s). Does not alter the original array. Syntax: toSpliced(startIndex, amount, replaceWith)
-console.log(newColors);
-console.log(colors);
-colors.splice(0, 1, "Orange", "Pink"); // Same as toSpliced, but alters original array.
-console.log(colors);
+// Section 3: Function to check if a word is a palindrome
 
-const unsortedNumbers = [4, 7, 3, 4, 3, 7, 5, 4, 8, 1];
-const sortedNumbers = unsortedNumbers.toSorted(); // Sorts the array alphabetically, does not alter original array.
-console.log(sortedNumbers);
-unsortedNumbers.sort(); // Same as toSorted but alters the original array
-console.log(unsortedNumbers);
-console.log(colors.sort());
-console.log(sortedNumbers[0]);
-console.log(sortedNumbers.at(0)); // returns the element at the given index
-console.log(sortedNumbers.at(-1)); // returns the last element in the array (increase number to go further)
-const reversedNumbers = sortedNumbers.toReversed(); // reverses the array, does not alter the original
-console.log(reversedNumbers);
-sortedNumbers.reverse(); // same as .toReversed() but alters the original array
-console.log(sortedNumbers);
+function checkPalindrome(word) {
+  //   do a check to see if "word" is the same as "word" reversed
+  if (word === word.split("").reverse().join("")) {
+    return `The word ${word} is a palindrome`;
+  } else {
+    return `The word ${word} is not a palindrome`;
+  }
+}
 
-// Section 2.1: Converting an Array into a String
-console.log(colors);
-console.log(colors.join(" "));
+console.log(checkPalindrome("Racecar"));
+console.log(checkPalindrome("banana"));
 
-// Section 3: Number Methods
-const myNum = 3.837549;
+// Section 4: Math.random()
 
-console.log(myNum.toExponential()); // converts our number into exponential notation
-console.log(myNum.toFixed(2)); // rounds our number to the nearest 2 decimal places AND converts it to a string
-console.log(myNum.toString()); // converts the number into a string
+// Pseudo random - simulated randomness
 
-// Section 4: Chaining methods together
+// Math.random() is a built-in JavaScript method that gives you a random number between 0 (inclusive) and 1 (exclusive).  0.0000000000000000 - 0.9999999999999999
 
-const rawString = "   JavaScript is fun!    ";
-// remove whitespace from both ends
-// replace "fun" with "cool"
-// convert to all uppercase
+// 0.0000000000000000 - 0.9999999999999999
+console.log(Math.random());
 
-const processedString = rawString.trim().replace("fun", "cool").toUpperCase();
-console.log(processedString);
+// 0-9
+// console.log(Math.floor(Math.random() * 10));
 
-const wordsArr = ["hElLO", "woRLD"];
-// convert our array into a string and make it lowercase
+// 1-10
+// console.log(Math.floor(Math.random() * 10) + 1);
 
-const fixedWords = wordsArr.toLowerCase().join(" ");
-console.log(fixedWords);
+// 5-10
+console.log(Math.floor(Math.random() * 6) + 5);
 
-// Bonus: Rounding numbers with Math
+const pokemon = [
+  "pikachu",
+  "diglett",
+  "electrode",
+  "machop",
+  "magikarp",
+  "mew",
+  "blastoise",
+  "vaporeon",
+  "psyduck",
+  "meowth",
+];
 
-console.log(Math.round(123.89)); // Math.round() rounds to the nearest whole number.
-console.log(Math.ceil(123.45)); // Math.ceil() rounds up
-console.log(Math.floor(123.89)); // Math.floor() rounds down
+// get a random number between 0-9
+const randomIndex = Math.floor(Math.random() * 10);
 
-// If a console error says "is not a function" you're probably running a method on the wrong datatype!!
+// log a random pokemon based on the random index
+console.log(pokemon[randomIndex]);
+
+// Section 5: Shorten a string
+
+function shorten(string, maxLength) {
+  if (string.length > maxLength) {
+    return string.slice(0, maxLength) + "...";
+  }
+
+  return string;
+}
+
+console.log(shorten("This is a long sentence that needs shortening!", 20)); //20
+console.log(shorten("This is short", 10)); //10
+
+// Section 6: Rock, Paper, Scissors - function, methods, random
+
+function rockPaperScissors(p1Answer, p2Answer) {
+  switch (p1Answer + p2Answer) {
+    case "Rock" + "Rock":
+    case "Scissors" + "Scissors":
+    case "Paper" + "Paper":
+      return "It's a draw!";
+    case "Rock" + "Scissors":
+    case "Scissors" + "Paper":
+    case "Paper" + "Rock":
+      return "computer 1 wins!";
+    case "Scissors" + "Rock":
+    case "Paper" + "Scissors":
+    case "Rock" + "Paper":
+      return "computer 2 wins!";
+    default:
+      return "Error!";
+  }
+}
+
+// Set computer variable to a random answer "Rock", "Paper", "Scissors"
+const possibleAnswers = ["Rock", "Paper", "Scissors"];
+
+// Random number between 0-2
+const ranInd1 = Math.floor(Math.random() * 3);
+const ranInd2 = Math.floor(Math.random() * 3);
+
+// Variables to store random answers, "Rock", "Paper" or "Scissors"
+let computer1 = possibleAnswers[ranInd1];
+let computer2 = possibleAnswers[ranInd2];
+
+// Sending the answers to the console
+console.log("Comp1 answer:", computer1);
+console.log("Comp2 answer:", computer2);
+
+// Calling the function, passing in the random answers
+console.log(rockPaperScissors(computer1, computer2));
