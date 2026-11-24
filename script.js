@@ -1,178 +1,214 @@
-// Loops
+// Objects
 
-// A loop is a way to repeat code without writing it multiple times.
+// Section 1: What is an Object?
 
-// Section 1: Why we use loops.
+// An object stores related data in key-value pairs.
 
-const names = ["Tom", "Eric"];
+const person = {
+  name: "Alice",
+  age: 28,
+  isPremium: true,
+};
 
-// D.R.Y - Don't Repeat Yourself!
+console.log(person); // log the entire object
+console.log(person.age); // dot notation
+console.log(person["name"]); // bracket notation
 
-console.log(`Hei ${names[0]}`);
-console.log(`Hei ${names[1]}`);
-console.log(`Hei ${names[2]}`);
+// Dot vs bracket:
+// - Use dot when you know the key name at code time: person.name
+// - Use brackets when the key is dynamic or not a valid identifier: person[key]
 
-// Section 2: "For loop"
+// Section 2: Creating, Modifying and Deleting in an Object
 
-// Where does the loop start? / When does the loop end? / What changes between each loop?
-for (let i = 0; i < 3; i++) {
-  console.log(`Hei ${names[i]}`);
+person.country = "Norway"; // create a new key-value pair
+person.isPremium = false; // modifying an existing key's value
+delete person.age; // deletes a key-value pair from the object
+
+console.log(person);
+
+// Section 3: Looping through an Object using 'for in' loop
+
+const user = {
+  name: "Joe",
+  age: 38,
+  location: "Stavanger",
+  hobbies: "gaming",
+};
+
+for (let key in user) {
+  console.log(key); // key
+  console.log(user[key]); // value
 }
 
-// Dynamic, loops however many times equal to the length of the names array. Fixes issues with undefined if we had too few names in the array and issues with never hitting names if we had too many in the array.
-for (let i = 0; i < names.length; i++) {
-  console.log(`Hei ${names[i]}`);
-}
+// Dynamic key access is useful when you don’t know the property name in advance, like when looping through an object or handling user input.
 
-// We can start i where we want, end when we want and increment how we want
-for (let i = 10; i > 0; i--) {
-  console.log(i);
-}
+// Section 4: Nested Objects and Arrays
 
-for (let i = 10; i > 0; i -= 2) {
-  console.log(i);
-}
+const userData = {
+  firstName: "Olav",
+  lastName: "Hansen",
+  age: 31,
+  isPremium: true,
+  hobbies: ["Golf", "Hiking", "Cinema"],
+  address: {
+    streetName: "Solskinnsgaten",
+    streetNumber: 38,
+    postCode: 4050,
+  },
+  fullName: function () {
+    return `${this.firstName} ${this.lastName}`;
+  },
+};
 
-// Combining loops with functions and methods
+console.log(userData);
+console.log(userData.isPremium);
+console.log(userData.hobbies[2]);
+console.log(userData.address.postCode);
+console.log(userData.fullName());
 
-function greetEveryone(nameArray) {
-  for (let i = 0; i < nameArray.length; i++) {
-    const cleanedName =
-      nameArray[i].trim().charAt(0).toUpperCase() +
-      nameArray[i].trim().slice(1).toLowerCase();
+// Section 5: Array of Objects
 
-    console.log(cleanedName);
-  }
-}
-
-const people = ["alICe  ", "   BOB   ", "ChaRlIE  ", "  DeBBY "];
-const people2 = ["joE  ", "BilLY"];
-
-greetEveryone(people);
-greetEveryone(people2);
-
-// Section 3: The "For of" loop
-// The for of loop, loops over an entire array from start to finish.
-
-const colors = ["Red", "Green", "Blue", "Yellow"];
-
-for (let color of colors) {
-  console.log(color);
-}
-
-const artists = [
-  "Queen",
-  "The beatles",
-  "Tool",
-  "Beastie Boys",
-  "Connor Price",
-  "Tool",
-];
-const uniqueArtists = [];
-
-for (let artist of artists) {
-  if (!uniqueArtists.includes(artist)) {
-    uniqueArtists.push(artist);
-    console.log(uniqueArtists);
-  }
-}
-
-// Section 4: The "While" Loop
-
-// useful when we don't know how many loops are needed
-
-let count = 1;
-
-while (count <= 5) {
-  console.log(count);
-  count++;
-}
-
-// random num between 1-10
-const secretNum = Math.floor(Math.random() * 10) + 1;
-
-let guess = 0;
-
-while (guess !== secretNum) {
-  guess++;
-  console.log(`Guessing: ${guess}`);
-
-  if (guess === secretNum) {
-    console.log(`You win! The number was: ${secretNum}`);
-  }
-}
-
-// Section 5: Filling an empty array using a loop
-
-// Goal: Generate 10 random numbers between 1-20
-
-function makeRandomArray(arrLength, max) {
-  const results = [];
-
-  // a loop that runs 10 times and generates a ranNum between 1-20 then pushes that number to the results array
-
-  for (let i = 0; i < arrLength; i++) {
-    results.push(Math.floor(Math.random() * max) + 1);
-  }
-
-  return results;
-}
-
-console.log(makeRandomArray(50, 10));
-console.log(makeRandomArray(5, 2000));
-
-const ranNumArr = makeRandomArray(100, 1000);
-
-// 1. We decide how many numbers in the array. 10, 20, 50, 100 etc ✅
-// 2. We decide what the numbers are between. 1-100, 1-10, 1-6 etc ✅
-
-// Section 6: Finding the biggest number in an array
-
-function findBiggest(numArray) {
-  let biggestNum = 0;
-
-  // Loop over an array of numbers
-  for (let number of numArray) {
-    if (number > biggestNum) {
-      biggestNum = number;
-      console.log(biggestNum);
-    }
-  }
-  return biggestNum;
-}
-
-console.log(findBiggest([1, 10, 3, 15, 3, 4, 5, 6, 100, 50, 3, 3, 1]));
-
-console.log(ranNumArr);
-console.log("The biggest number in the array was", findBiggest(ranNumArr));
-
-// Section 7: Break and Continue
-
-const moreNames = [
-  "Tom",
-  "Eric",
-  "Jessica",
-  "Scott",
-  "Anna",
-  "Carl",
-  "Elisabeth",
-  "Benny",
-  "Oliver",
-  "Andy",
-  "Jenny",
-  "Ashley",
-  "Erin",
-  "Patrick",
+const products = [
+  {
+    productName: "Shirt",
+    productId: 5,
+    stock: 32,
+  },
+  {
+    productName: "Pants",
+    productId: 6,
+    stock: 5,
+  },
+  {
+    productName: "Socks",
+    productId: 10,
+    stock: 22,
+  },
 ];
 
-for (let name of moreNames) {
-  if (name === "Andy") {
-    continue; // jumps to the next loop
-  }
+console.log(products[1].productName);
+console.log(products[2].productId);
 
-  if (name === "Ashley") {
-    break; // stops looping all together
-  }
+// Shirt is id number 5 and has 32 in stock currently.
+// Pants is id number 6 and has 5 in stock currently.
+// Socks is id number 10 and has 22 in stock currently.
 
-  console.log(name);
+for (let product of products) {
+  console.log(
+    `${product.productName} is id number ${product.productId} and has ${product.stock} in stock currently`,
+  );
 }
+
+// Section 6: Descriptive strings with Objects
+
+const people = [
+  {
+    name: "Thomas",
+    isMember: true,
+    age: 23,
+    hobbies: ["cycling", "football", "pool"],
+  },
+  {
+    name: "Susan",
+    isMember: false,
+    age: 26,
+    hobbies: ["jogging", "travelling", "dancing"],
+  },
+  {
+    name: "Monica",
+    isMember: false,
+    age: 21,
+    hobbies: ["skateboarding", "guitar", "concerts"],
+  },
+  {
+    name: "Avery",
+    isMember: true,
+    age: 28,
+    hobbies: ["coding"],
+  },
+  {
+    name: "Phillip",
+    isMember: true,
+    age: 24,
+    hobbies: ["boxing", "mma"],
+  },
+  {
+    name: "Otto",
+    isMember: true,
+    age: 36,
+    hobbies: ["movies", "cinema", "music", "fixin up old cars"],
+  },
+  {
+    name: "Annabelle",
+    isMember: false,
+    age: 30,
+    hobbies: ["makeup", "fashion", "shopping", "warhammer", "rock climbing"],
+  },
+  {
+    name: "Cathy",
+    isMember: false,
+    age: 18,
+    hobbies: ["design"],
+  },
+  {
+    name: "Thomas",
+    isMember: false,
+    age: 38,
+    hobbies: ["gaming"],
+  },
+];
+
+for (let person of people) {
+  // ternary to show nothing or "not" depending on if isMember is true or false
+  const membership = person.isMember ? "" : "not";
+
+  // a random index between 0 - hobbies.length (dynamic depending on how many hobbies)
+  const ranIndex = Math.floor(Math.random() * person.hobbies.length);
+
+  console.log(
+    `${person.name} is ${person.age}, is ${membership} a member and enjoys ${person.hobbies[ranIndex]}.`,
+  );
+}
+
+// section 7: Working with object data
+
+// calculate the total age of all people
+
+let totalAge = 0;
+
+for (let person of people) {
+  totalAge += person.age;
+}
+
+console.log(totalAge);
+
+// Section 8: Combining Hobbies into one single array using Spread Syntax
+
+// using ... in front of an array gives us access to the contents of the array rather than the array itself.
+
+const allHobbies = [];
+
+for (let person of people) {
+  allHobbies.push(...person.hobbies);
+}
+
+console.log(allHobbies);
+
+// Section 9: Adding new properties to Objects in an Array
+
+for (let person of people) {
+  person.discount = person.isMember ? "10%" : "None";
+  console.log(person);
+}
+
+// --------------------------------------
+// Summary
+// --------------------------------------
+
+// ✅ Objects use key-value pairs to store data.
+// ✅ Dot and bracket notation let you access or update values.
+// ✅ Objects can contain arrays, other objects, or even functions.
+// ✅ You can loop through objects with for...in.
+// ✅ Arrays can contain objects and be used with loops.
+// ✅ Spread syntax can flatten nested arrays.
+// ✅ You can dynamically add or modify object properties.
